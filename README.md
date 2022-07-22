@@ -8,5 +8,7 @@ You can get this by running /api new on the Hypixel Minecraft server.
 
 WARNING, some of the recommendations may not be accurate, so keep using your brain, if it says you can sell a piece of melon for 1 million coins, this is not true.
 
+Also, the graphs are only filled when the app is open, so if you close the app, the graphs will not update.
+
 ![alt text](https://github.com/Olle-Lukowski/Live-Bazaar-Stats/blob/main//images/main_screen.png?raw=true)
 ![alt text](https://github.com/Olle-Lukowski/Live-Bazaar-Stats/blob/main//images/graph_screen.png?raw=true)
