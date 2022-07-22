@@ -135,7 +135,6 @@ class TrackerInterface:
             text.destroy()
         for button in self.info_buttons:
             button.destroy()
-        # close graphs
         print("Refreshing")
         self.data = self.data_requester.get({"Api-Key": self.api_key})
         self.data_saver.save(self.data.json())
@@ -209,27 +208,19 @@ class TrackerInterface:
         win.resizable(False, False)
         win.config(padx=10, pady=10)
         print(f"Info button clicked for {index}")
-        # create a graph with the data from the product in the current index, buy data first
         fig = Figure(figsize=(5,5), dpi=100)
         fig.tight_layout(pad=1.0)
         a = fig.add_subplot(221)
-        # the data is formatted like this: in the file you have timestamps, under the timestamp go to ["products"][product_id]["buy_summary"][0]["pricePerUnit"]
-
-        # get the data from the product
         data = self.data_saver.load()
-        # get the timestamps
         timestamps = [x for x in data]
-        # get the prices
         prices = []
         for i in range(len(timestamps)):
             price = data[timestamps[i]]["products"][product_id]["buy_summary"][0]["pricePerUnit"]
             prices.append(price)
-        # get the dates
         dates = []
         for i in range(len(timestamps)):
             date = datetime.datetime.fromtimestamp(float(timestamps[i])).strftime('%Y-%m-%d %H:%M:%S')
             dates.append(date)
-        # plot the data
         a.plot(dates, prices)
         a.xaxis.set_visible(False)
         a.set_xlabel('Date')
@@ -239,25 +230,18 @@ class TrackerInterface:
         self.canvas.draw()
         self.canvas.get_tk_widget().grid(row=0, column=0)
 
-        # sell data
         fig2 = Figure(figsize=(5,5), dpi=100)
         fig2.tight_layout(pad=1.0)
         a2 = fig2.add_subplot(221)
-        # the data is formatted like this: in the file you have timestamps, under the timestamp go to ["products"][product_id]["sell_summary"][0]["pricePerUnit"]
-        # data is already loaded
-        # get the prices
         prices = []
         for i in range(len(timestamps)):
             price = data[timestamps[i]]["products"][product_id]["sell_summary"][0]["pricePerUnit"]
             prices.append(price)
-        # get the dates
         dates = []
         for i in range(len(timestamps)):
             date = datetime.datetime.fromtimestamp(float(timestamps[i])).strftime('%Y-%m-%d %H:%M:%S')
             dates.append(date)
-        # plot the data
         a2.plot(dates, prices)
-        # hid the date labels
         a2.xaxis.set_visible(False)
         a2.set_xlabel('Date')
         a2.set_ylabel('Price')
@@ -266,26 +250,19 @@ class TrackerInterface:
         self.canvas2.draw()
         self.canvas2.get_tk_widget().grid(row=0, column=1)
 
-        # buy volume
         fig3 = Figure(figsize=(5,5), dpi=100)
         fig3.tight_layout(pad=1.0)
         a3 = fig3.add_subplot(221)
-        # the data is formatted like this: in the file you have timestamps, under the timestamp go to ["products"][product_id]["buy_summary"][0]["amount"]
-        # data is already loaded
-        # get the volumes
 
         movement = []
         for i in range(len(timestamps)):
             move = data[timestamps[i]]["products"][product_id]["quick_status"]["buyMovingWeek"] / 7
             movement.append(move)
-        # get the dates
         dates = []
         for i in range(len(timestamps)):
             date = datetime.datetime.fromtimestamp(float(timestamps[i])).strftime('%Y-%m-%d %H:%M:%S')
             dates.append(date)
-        # plot the data
         a3.plot(dates, movement)
-        # hid the date labels
         a3.xaxis.set_visible(False)
         a3.set_xlabel('Date')
         a3.set_ylabel('Volume')
@@ -294,25 +271,18 @@ class TrackerInterface:
         self.canvas3.draw()
         self.canvas3.get_tk_widget().grid(row=1, column=0)
 
-        # sell volume
         fig4 = Figure(figsize=(5,5), dpi=100)
         a4 = fig4.add_subplot(221)
-        # the data is formatted like this: in the file you have timestamps, under the timestamp go to ["products"][product_id]["sell_summary"][0]["amount"]
-        # data is already loaded
-        # get the volumes
 
         movement = []
         for i in range(len(timestamps)):
             move = data[timestamps[i]]["products"][product_id]["quick_status"]["sellMovingWeek"] / 7
             movement.append(move)
-        # get the dates
         dates = []
         for i in range(len(timestamps)):
             date = datetime.datetime.fromtimestamp(float(timestamps[i])).strftime('%Y-%m-%d %H:%M:%S')
             dates.append(date)
-        # plot the data
         a4.plot(dates, movement)
-        # hid the date labels
         a4.xaxis.set_visible(False)
         a4.set_xlabel('Date')
         a4.set_ylabel('Movement')

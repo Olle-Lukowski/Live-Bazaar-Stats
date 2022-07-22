@@ -33,7 +33,6 @@ class BazaarBrain:
                 profit_percentage = (buy_price - (sell_price*0.9875)) / (sell_price * 0.9875) * 100
                 profit_per_minute = ((buy_price*0.9875) * min(sell_movement_minutes, buy_movement_minutes)) - (sell_price * min(sell_movement_minutes, buy_movement_minutes))
                 print("Profit: " + str(profit_per_minute))
-                # check if the profit is better than the current lowest profit in the best_profits list
                 if profit_per_minute > profits_per_minute["ten"]:
                     for key2, value in profits_per_minute.items():
                         if profit_per_minute > value:
