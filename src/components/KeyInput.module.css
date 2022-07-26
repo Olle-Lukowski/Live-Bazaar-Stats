@@ -1,0 +1,16 @@
+.keyinput{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    font-size: 1.5em;
+    font-family: monospace;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 0 0 0.1em #000;
+    outline: none;
+    cursor: pointer;
+}
